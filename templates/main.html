@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block scripts %}
+<script type="text/javascript" src="{{ date_url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<p id='username'>{{ username }}</p>
+{% endblock %}
