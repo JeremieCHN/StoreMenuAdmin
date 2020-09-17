@@ -24,7 +24,7 @@ def date_url_for(endpoint, **value):
 
 if __name__ == '__main__':
     # session的秘钥
-    app.secret_key = b'_5#y2L"F4Q8z'
+    app.secret_key = config['secret_key']
 
     # 启用模板文件的热更
     app.jinja_env.auto_reload = True

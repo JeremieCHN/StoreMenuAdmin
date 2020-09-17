@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{{ date_url_for('static', filename='favicon.ico') }}">
-    <title>{{ title }} -- 后台管理</title>
+    <title>登录</title>
 </head>
 <body>
     <script type="text/javascript" src="{{ date_url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ date_url_for('static', filename='js/login.js') }}"></script>
 
-    <input id='username' />
-    <input id='password' />
+    <p>用户名 <input id='username' /></p>
+    <p>密码 <input id='password' /></p>
     <button id="login_btn">Login</button>
 </body>
 </html>

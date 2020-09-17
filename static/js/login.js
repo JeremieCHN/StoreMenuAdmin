@@ -15,7 +15,7 @@ window.onload = function() {
             success: function(resp) {
                 let res = JSON.parse(resp)
                 if (res.code == 0)
-                    window.location = '/'
+                    window.location = '/admin'
                 else
                     alert("登录失败")
             }

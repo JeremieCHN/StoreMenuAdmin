@@ -1,0 +1,11 @@
+OK = 0
+
+# 登录相关
+LOGIN_FAILED = 1
+NEED_LOGIN = 2
+
+# 管理相关
+GOOD_NOT_EXISTS = 3
+TYPE_NOT_EXISTS = 4
+
+NO_IMAGE = 5

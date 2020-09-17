@@ -1,20 +1,10 @@
 from flask import (session, redirect)
-from functools import wraps
 from settings import config
 import time
 
 
-def login_require(f):
-    @wraps(f)
-    def warpper(*args, **kwargs):
-        if LoginManager.check_login():
-            return f(*args, **kwargs)
-        else:
-            return redirect('/admin/login')
-    return warpper
-
-
 class LoginManager:
+    # random key -> username
     login_users = {}
 
 
