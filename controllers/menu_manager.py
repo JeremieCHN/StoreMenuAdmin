@@ -11,9 +11,6 @@ def get_id(collison=[]):
         if id not in collison:
             return id
 
-def get_data():
-    return {"goods": models.goods, "types": models.types, "images": models.images}
-
 def add_type(type_name, show_index=1):
     t = models.GoodType(get_id(list(models.types.keys)), type_name, show_index)
     models.types[t.id] = t
