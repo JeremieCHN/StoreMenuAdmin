@@ -25,7 +25,22 @@ def login_view():
 
 
 @view.route('/', methods=['GET'])
-# @login_require
+@login_require
 def index():
-    # return render_template('main.html', username = LoginManager.get_username())
-    return render_template('main.html', username = "TEXT")
+    return redirect('/admin/good')
+
+@view.route('/img', methods=['GET'])
+@login_require
+def img_view():
+    return render_template('main.html', username = LoginManager.get_username(), choise=1)
+
+@view.route('/type', methods=['GET'])
+@login_require
+def type_view():
+    return render_template('main.html', username = LoginManager.get_username(), choise=2)
+
+@view.route('/good', methods=['GET'])
+@login_require
+def good_view():
+    return render_template('main.html', username = LoginManager.get_username(), choise=3)
+

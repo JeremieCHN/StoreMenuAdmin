@@ -1,11 +1,15 @@
 {% extends "layout.html" %}
 
+{% block head %}
+{% endblock %}
+
 {% block scripts %}
 <script type="text/javascript" src="{{ date_url_for('static', filename='js/main.js') }}"></script>
 {% endblock %}
 
 {% block content %}
-<p id='username'>{{ username }}</p>
+<div class="container-fluid">
+</div>
 <form id="upload_file_form">
     <input type=file name=file>
 </form>

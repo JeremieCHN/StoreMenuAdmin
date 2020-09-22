@@ -1,15 +1,44 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Cache-Control" content="no-cache" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{{ date_url_for('static', filename='favicon.ico') }}">
-    <title>{{ title }} -- 后台管理</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" crossorigin="anonymous">
+    <title>后台管理</title>
+    {% block head %}{% endblock %}
 </head>
+
 <body>
     <script type="text/javascript" src="{{ date_url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
-    {% block scripts %}{% endblock %}
-    {% block content %}{% endblock %}
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"
+        integrity="sha256-ecWZ3XYM7AwWIaGvSdmipJ2l1F4bN9RXW6zgpeAiZYI=" crossorigin="anonymous"></script>
+    {% block scripts %}
+    {% endblock %}
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <span class="navbar-brand">
+            <img class="d-inline-block align-top" src="{{ url_for('static', filename='favicon.ico') }}"  width="30" height="30"  alt="" loading="lazy"/>
+        </span>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link text-light {% if choise==1 %}font-weight-bold{% endif %}" href="/admin/img">图片</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light {% if choise==2 %}font-weight-bold{% endif %}" href="/admin/type">商品类型</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light {% if choise==3 %}font-weight-bold{% endif %}" href="/admin/good">商品</a>
+            </li>
+        </ul>
+        <span class="text-light">当前用户：{{ username }}</span>
+    </nav>
+    {% block content %}
+    {% endblock %}
 </body>
+
 </html>
