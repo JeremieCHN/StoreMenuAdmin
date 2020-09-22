@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{{ date_url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+</div>
+<form id="upload_file_form">
+    <input type=file name=file>
+</form>
+<button id="upload_btn">提交</button>
+<form id="add_type_btn">
+    <input type="text" name="type_name">
+</form>
+<button id="upload_btn">提交</button>
+<button id="get_data">拉数据</button>
+{% endblock %}

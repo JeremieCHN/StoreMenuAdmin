@@ -55,7 +55,7 @@ def add_image(req_file):
     save_filename = os.path.join(config['image_path'], g_filename)
     req_file.save(save_filename)
 
-    g = models.Image(g_id, filename)
+    g = models.Image(g_id, g_filename, origin_filename)
     models.images[g.id] = g
     models.save()
     return errcode.OK

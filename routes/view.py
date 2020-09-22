@@ -32,15 +32,15 @@ def index():
 @view.route('/img', methods=['GET'])
 @login_require
 def img_view():
-    return render_template('main.html', username = LoginManager.get_username(), choise=1)
+    return render_template('img.html', username = LoginManager.get_username(), choise=1)
 
 @view.route('/type', methods=['GET'])
 @login_require
 def type_view():
-    return render_template('main.html', username = LoginManager.get_username(), choise=2)
+    return render_template('type.html', username = LoginManager.get_username(), choise=2)
 
 @view.route('/good', methods=['GET'])
 @login_require
 def good_view():
-    return render_template('main.html', username = LoginManager.get_username(), choise=3)
+    return render_template('good.html', username = LoginManager.get_username(), choise=3)
 

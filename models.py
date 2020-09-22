@@ -52,21 +52,24 @@ class GoodType():
         )
 
 class Image():
-    def __init__(self, id, filename):
-        self.id = 1
-        self.filename = ""
+    def __init__(self, id, filename, origin_filename):
+        self.id = id
+        self.filename = filename
+        self.origin_filename = origin_filename
 
     def to_json_obj(self):
         return {
             "id": self.id,
             "filename": self.filename,
+            "origin_filename": self.origin_filename
         }
 
     @staticmethod
     def from_dict(data_dict):
         return Image(
             id = data_dict['id'],
-            filename = data_dict['filename']
+            filename = data_dict['filename'],
+            origin_filename = data_dict['origin_filename']
         )
 
 
@@ -101,3 +104,11 @@ def save():
     data_file = open(file_name, 'w')
     json.dump(dump_dict, data_file)
     data_file.close()
+
+
+# 初始化保证路径的存在    
+if not os.path.exists(config['image_path']):
+    os.makedirs(config['image_path'])
+
+if not os.path.exists(config['data_file']):
+    save()
