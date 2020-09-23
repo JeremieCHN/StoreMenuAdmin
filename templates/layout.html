@@ -18,9 +18,21 @@
     {% block scripts %}
     {% endblock %}
 
+    <style>
+        #username {
+            padding: .5rem
+        }
+        .table thead th, .table tbody td {
+            padding: 0.8rem;
+            line-height: 1rem;
+            vertical-align: middle;
+        }
+    </style>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
         <span class="navbar-brand">
-            <img class="d-inline-block align-top" src="{{ url_for('static', filename='favicon.ico') }}"  width="30" height="30"  alt="" loading="lazy"/>
+            <img class="d-inline-block align-top" src="{{ url_for('static', filename='favicon.ico') }}" width="30"
+                height="30" alt="" loading="lazy" />
         </span>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
@@ -33,10 +45,42 @@
                 <a class="nav-link text-light {% if choise==3 %}font-weight-bold{% endif %}" href="/admin/good">商品</a>
             </li>
         </ul>
-        <span class="text-light" id="username" style="cursor: pointer;">当前用户：{{ username }}</span>
+        <span class="navbar-text text-light" id="username">当前用户：{{ username }}</span>
+        <button class="btn btn-light" id="logout-btn">登出</button>
     </nav>
     {% block content %}
     {% endblock %}
+
+
+    <!-- Alert Modal -->
+    <div class="modal" id="alert-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="dialog-title" class="modal-title">错误</h5>
+                    <button id="close-dialog-btn" type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span id="dialog-message"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Loading Modal -->
+    <div class="modal" id="loading-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">请稍候...</h5>
+                </div>
+                <div class="modal-body">
+                    <span id="loading-message"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

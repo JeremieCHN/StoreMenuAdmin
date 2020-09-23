@@ -46,6 +46,8 @@ def rm_good(good_id):
     models.save()
     return errcode.OK
 
+def get_img_list():
+    return models.get_image_list()
 
 def add_image(req_file):
     origin_filename, file_ext = os.path.splitext(req_file.filename)
@@ -55,7 +57,7 @@ def add_image(req_file):
     save_filename = os.path.join(config['image_path'], g_filename)
     req_file.save(save_filename)
 
-    g = models.Image(g_id, g_filename, origin_filename)
+    g = models.Image(g_id, g_filename, req_file.filename)
     models.images[g.id] = g
     models.save()
     return errcode.OK

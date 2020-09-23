@@ -72,24 +72,41 @@ class Image():
             origin_filename = data_dict['origin_filename']
         )
 
+def get_type_list():
+    dump_list = []
+    for key in types.keys():
+        dump_list.append(types[key].to_json_obj())
+    return json.dumps(dump_list)
+
+def get_good_list():
+    dump_list = []
+    for key in goods.keys():
+        dump_list.append(goods[key].to_json_obj())
+    return json.dumps(dump_list)
+
+def get_image_list():
+    dump_list = []
+    for key in images.keys():
+        dump_list.append(images[key].to_json_obj())
+    return json.dumps(dump_list)
 
 def load():
     file_name = config['data_file']
-    if os.path.exists(file_name):
-        data_file = open(file_name, 'r')
-        data = json.load(data_file)
-        data_file.close()
+    data_file = open(file_name, 'r')
+    data = json.load(data_file)
+    data_file.close()
 
-        for good_dict in data['goods']:
-            g = Good.from_dict(good_dict)
-            goods[g.id] = g
+    for good_dict in data['goods']:
+        g = Good.from_dict(good_dict)
+        goods[g.id] = g
 
-        for type_dict in data['types']:
-            g = GoodType.from_dict(type_dict)
-            types[g.id] = g
-    else:
-        goods = {}
-        types = {}
+    for type_dict in data['types']:
+        g = GoodType.from_dict(type_dict)
+        types[g.id] = g
+
+    for image_dict in data['images']:
+        g = Image.from_dict(image_dict)
+        images[g.id] = g
 
 def save():
     dump_dict = {'types': [], 'goods': [], 'images': []}
@@ -106,9 +123,11 @@ def save():
     data_file.close()
 
 
-# 初始化保证路径的存在    
+# 初始化保证路径的存在
 if not os.path.exists(config['image_path']):
     os.makedirs(config['image_path'])
 
 if not os.path.exists(config['data_file']):
     save()
+
+load()

@@ -68,6 +68,11 @@ def api_upload_img():
     MenuManager.add_image(img)
     return __resp()
 
+@api.route('/get_img_list', methods=['GET'])
+@login_require
+def api_get_img_list():
+    return __resp(errcode.OK, MenuManager.get_img_list())
+
 @api.route('/add_type', methods=['POST'])
 @login_require
 def api_add_type():
