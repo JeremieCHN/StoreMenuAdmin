@@ -1,54 +1,14 @@
-{% extends "layout.html" %}
+{% extends "list_view.html" %}
 
-{% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-select.min.css') }}">
-{% endblock %}
-
-{% block scripts %}
-<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-select.min.js') }}"></script>
+{% block list_scripts %}
 <script type="text/javascript" src="{{ date_url_for('static', filename='js/type.js') }}"></script>
 {% endblock %}
 
-{% block content %}
-<style>
-    #main {
-        padding: 15px;
-    }
+{% block before_table %}
+<button id="new-type-btn" class="btn btn-primary" disabled>新增类型</button>
+{% endblock %}
 
-    #type-table {
-        margin-top: 15px;
-    }
-</style>
-
-<div class="container" id="main">
-    <button id="new-type-btn" class="btn btn-primary" disabled>新增类型</button>
-    <div id="type-table">
-        <table class="table table-bordered table-hover text-center text-nowrap">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>类型名</th>
-                    <th>图片</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody id="type-table-body">
-            </tbody>
-        </table>
-    </div>
-    <div id="pagination">
-        <div class="float-right pagination">
-            <ul class="pagination">
-                <li id="page-pre" class="page-item disabled"><span onclick="on_page_click(-1)"
-                        class="page-link">‹</span></li>
-                <li class="page-item active"><span onclick="on_page_click(1)" class="page-link">1</span></li>
-                <li id="page-next" class="page-item" id="pagination-next"><span onclick="on_page_click(-2)"
-                        class="page-link">›</span></li>
-            </ul>
-        </div>
-    </div>
-</div>
-
+{% block after_table %}
 <div class="modal fade" id="add-type-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">

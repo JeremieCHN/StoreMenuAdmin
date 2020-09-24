@@ -1,18 +1,11 @@
-{% extends "layout.html" %}
+{% extends "list_view.html" %}
 
-{% block head %}
-{% endblock %}
-
-{% block scripts %}
+{% block list_scripts %}
 <script type="text/javascript" src="{{ date_url_for('static', filename='js/img.js') }}"></script>
 {% endblock %}
 
-{% block content %}
+{% block before_table %}
 <style>
-    #main {
-        padding: 15px;
-    }
-
     #file-upload {
         display: -ms-flexbox;
         display: flex;
@@ -50,38 +43,11 @@
         margin-top: 15px;
     }
 </style>
-
-<div class="container" id="main">
-    <div id="file-upload">
-        <div id="file-chooser" class="align-middle">
-            <input type="file" id="file_input">
-            <span id="filename" class="border rounded d-inline-block text-truncate">请选择文件...</span>
-        </div>
-        <button id="upload_btn" class="btn btn-primary" type="button">上传图片</button>
+<div id="file-upload">
+    <div id="file-chooser" class="align-middle">
+        <input type="file" id="file_input">
+        <span id="filename" class="border rounded d-inline-block text-truncate">请选择文件...</span>
     </div>
-    <div id="img-table">
-        <table class="table table-bordered table-hover text-center text-nowrap">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>原文件名</th>
-                    <th>存档文件名</th>
-                    <th>预览</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody id="img-table-body">
-            </tbody>
-        </table>
-    </div>
-    <div id="pagination">
-        <div class="float-right pagination">
-            <ul class="pagination">
-            <li id="page-pre" class="page-item disabled"><span onclick="on_page_click(-1)" class="page-link">‹</span></li>
-            <li class="page-item active"><span onclick="on_page_click(1)" class="page-link">1</span></li>
-            <li id="page-next" class="page-item" id="pagination-next"><span onclick="on_page_click(-2)" class="page-link">›</span></li>
-            </ul>
-        </div>
-    </div>
+    <button id="upload_btn" class="btn btn-primary" type="button">上传图片</button>
 </div>
 {% endblock %}

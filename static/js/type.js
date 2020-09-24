@@ -66,7 +66,7 @@ function bind_new_type_btns() {
                     "img_id": img,
                     "show_index": order
                 }),
-                success: function(resp) {
+                success: function (resp) {
                     console.log(resp)
                     resp = JSON.parse(resp)
                     close_loading()
@@ -76,7 +76,7 @@ function bind_new_type_btns() {
                         $("#type-name-input").val("")
                         $("#type-img-select").selectpicker('val', "")
                         $("#type-order-input").val(1)
-                        show_info("新增成功", function() {
+                        show_info("新增成功", function () {
                             location.reload();
                         })
                     } else {
@@ -94,8 +94,6 @@ function bind_new_type_btns() {
 }
 
 // 主要显示部分
-var type_data, cur_page
-
 function init_type_list() {
     $.ajax({
         url: "/api/get_type_list",
@@ -104,79 +102,35 @@ function init_type_list() {
             var _resp = resp
             resp = JSON.parse(resp)
             if (resp.code != 0) {
-                show_err("拉取类型列表失败，请刷新重试: "+ _resp)
+                show_err("拉取类型列表失败，请刷新重试: " + _resp)
             } else {
                 data = JSON.parse(resp.data)
-                data.sort(function(t1, t2) {
+                data.sort(function (t1, t2) {
                     if (t1.show_index != t2.show_index) {
                         return t1.show_index - t2.show_index
                     } else {
                         return t1.id - t2.id
                     }
                 })
-                type_data = data
-                page_count = Math.ceil(data.length / 10)
-
-                tempatePagination(page_count)
-                on_page_click(1)
+                dataset = data
+                render_page()
             }
         },
-        fail: function() {
+        fail: function () {
             show_err("拉取类型列表失败，请刷新重试")
         }
     })
 }
 
-function tempatePagination(page_count) {
-    for (var i = 2; i <= page_count; i++) {
-        $("#pagination-next").insertBefore(
-            `<li class="page-item deactive"><span onclick="on_page_click(${i})" class="page-link">${i}</span></li>`
-        )
-    }
-}
+HeadHtml =
+    `<tr>
+        <th>ID</th>
+        <th>类型名</th>
+        <th>图片</th>
+        <th>操作</th>
+    </tr>`
 
-function tempatePage(page) {
-    $("#type-table-body").empty()
-    var start = (page - 1) * 10
-    var end = Math.min(type_data.length - 1, start + 10 - 1)
-    for (var i = start; i <= end; i++) {
-        $("#type-table-body").append(tempateType(type_data[i]))
-    }
-}
-
-function on_page_click(page) {
-    var page_count = Math.ceil(type_data.length / 10)
-    if (page > 0) {
-        cur_page = page
-    } else {
-        if (page == -1) cur_page -= 1
-        if (page == -1) cur_page += 1
-        cur_page = Math.max(cur_page, 1)
-        cur_page = Math.min(cur_page, page_count)
-    }
-
-    tempatePage(cur_page)
-    var e = $("#pagination .active")
-    e.removeClass("active")
-    e.addClass("deactive")
-
-    e = $("#pagination ul li:nth-child(" + (cur_page+1) + ")")
-    e.addClass("active")
-    e.removeClass("deactive")
-
-    if (cur_page == 1) {
-        $("#page-pre").addClass("disabled")
-    } else {
-        $("#page-pre").removeClass("disabled")
-    }
-    if (cur_page == page_count) {
-        $("#page-next").addClass("disabled")
-    } else {
-        $("#page-next").removeClass("disabled")
-    }
-}
-
-function tempateType(item) {
+templateItem = function (item) {
     return `
     <tr>
         <td>${item.id}</td>

@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-select.min.css') }}">
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-select.min.js') }}"></script>
+<script type="text/javascript" src="{{ date_url_for('static', filename='js/list_view.js') }}"></script>
+
+{% block list_scripts %}
+{% endblock %}
+{% endblock %}
+
+{% block content %}
+<style>
+    #main {
+        padding: 15px;
+    }
+
+    #data-table {
+        margin-top: 15px;
+    }
+</style>
+
+<div class="container" id="main">
+    {% block before_table %}
+    {% endblock %}
+    <div id="data-table">
+        <table class="table table-bordered table-hover text-center text-nowrap">
+            <thead id="data-table-head">
+            </thead>
+            <tbody id="data-table-body">
+            </tbody>
+        </table>
+    </div>
+    <div id="pagination">
+        <div class="float-right pagination">
+            <ul class="pagination">
+                <li id="page-pre" class="page-item disabled"><span onclick="on_page_click(-1)"
+                        class="page-link">‹</span></li>
+                <li class="page-item active"><span onclick="on_page_click(1)" class="page-link">1</span></li>
+                <li id="page-next" class="page-item" id="pagination-next"><span onclick="on_page_click(-2)"
+                        class="page-link">›</span></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% block after_table %}
+{% endblock %}
+
+{% endblock %}
