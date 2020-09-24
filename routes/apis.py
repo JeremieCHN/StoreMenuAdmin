@@ -23,6 +23,8 @@ def login_require(f):
     return warpper
 
 def __resp(_errcode=errcode.OK, data_str=''):
+    if _errcode != errcode.OK and data_str == '' and _errcode in errcode.MSG_MAP:
+        data_str = errcode.MSG_MAP[_errcode]
     return json.dumps({ 'code': _errcode, 'data': data_str })
 
 
@@ -43,6 +45,17 @@ def get_image(filename):
         return abort(404)
     return send_file(filename)
 
+@api.route('/images_id/<id>', methods=['GET'])
+def get_image_by_id(id):
+    id = int(id)
+    filename = MenuManager.get_img_filename(id)
+    if filename == None:
+        return abort(404)
+    filename = os.path.join(config['image_path'], filename)
+    if not os.path.exists(filename):
+        return abort(404)
+    return send_file(filename)
+
 # 登录相关的
 @api.route('/login', methods=['POST'])
 def api_login():
@@ -58,7 +71,12 @@ def api_logout():
     LoginManager.logout()
     return __resp()
 
-# 管理相关的
+# 图片管理
+@api.route('/get_img_list', methods=['GET'])
+@login_require
+def api_get_img_list():
+    return __resp(errcode.OK, MenuManager.get_img_list())
+
 @api.route('/upload_img', methods=['POST'])
 @login_require
 def api_upload_img():
@@ -68,21 +86,35 @@ def api_upload_img():
     MenuManager.add_image(img)
     return __resp()
 
-@api.route('/get_img_list', methods=['GET'])
+# TODO 删除图片
+@api.route('/rm_img', methods=['GET'])
 @login_require
-def api_get_img_list():
-    return __resp(errcode.OK, MenuManager.get_img_list())
+def rm_img():
+    print(request.get_data())
+    return __resp()
+
+# 类型管理
+@api.route('/get_type_list', methods=['GET'])
+@login_require
+def api_get_type_list():
+    return __resp(errcode.OK, MenuManager.get_type_list())
 
 @api.route('/add_type', methods=['POST'])
 @login_require
 def api_add_type():
-    pass
+    data = request.data.decode("utf-8")
+    data = json.loads(data)
+    if 'type_name' not in data or 'img_id' not in data or 'show_index' not in data:
+        return __resp(errcode.COMMON)
+    err = MenuManager.add_type(data['type_name'], data['img_id'], data['show_index'])
+    return __resp(err)
 
 @api.route('/rm_type', methods=['GET'])
 @login_require
 def api_rm_type():
     pass
 
+# 商品管理
 @api.route('/add_goods', methods=['POST'])
 @login_require
 def api_add_goods():

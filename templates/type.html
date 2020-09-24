@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-select.min.css') }}">
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-select.min.js') }}"></script>
+<script type="text/javascript" src="{{ date_url_for('static', filename='js/type.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<style>
+    #main {
+        padding: 15px;
+    }
+
+    #type-table {
+        margin-top: 15px;
+    }
+</style>
+
+<div class="container" id="main">
+    <button id="new-type-btn" class="btn btn-primary" disabled>新增类型</button>
+    <div id="type-table">
+        <table class="table table-bordered table-hover text-center text-nowrap">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>类型名</th>
+                    <th>图片</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="type-table-body">
+            </tbody>
+        </table>
+    </div>
+    <div id="pagination">
+        <div class="float-right pagination">
+            <ul class="pagination">
+                <li id="page-pre" class="page-item disabled"><span onclick="on_page_click(-1)"
+                        class="page-link">‹</span></li>
+                <li class="page-item active"><span onclick="on_page_click(1)" class="page-link">1</span></li>
+                <li id="page-next" class="page-item" id="pagination-next"><span onclick="on_page_click(-2)"
+                        class="page-link">›</span></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="add-type-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">新增类型</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form">
+                    <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">类型名</div>
+                        </div>
+                        <input type="text" class="form-control" id="type-name-input">
+                    </div>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">顺序号</div>
+                        </div>
+                        <input type="text" class="form-control" id="type-order-input">
+                    </div>
+                    <p class="text-left text-secondary" style="font-size: small;">排序规则：顺序号小的在前，同顺序号，早添加的在前</p>
+                    <select id="type-img-select" class="selectpicker" data-container="body" data-width="100%"
+                        title="选择图片">
+                    </select>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">取消</button>
+                <button class="btn btn-primary" id="save-btn">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

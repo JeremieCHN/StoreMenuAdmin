@@ -19,7 +19,7 @@ $(function() {
                 success: function(resp) {
                     let res = JSON.parse(resp)
                     if (res.code == 0)
-                        window.location = '/admin'
+                        window.location = '/admin/type'
                     else {
                         $("#error-message").text("登录失败，请检查用户名和密码")
                         $("#error-modal").modal()

@@ -31,16 +31,18 @@ class Good():
         )
 
 class GoodType():
-    def __init__(self, id, type_name, show_index):
+    def __init__(self, id, type_name, show_index, img_id):
         self.id = id
         self.type_name = type_name
         self.show_index = show_index
+        self.img_id = img_id
 
     def to_json_obj(self):
         return {
             "id": self.id,
             "type_name": self.type_name,
             "show_index": self.show_index,
+            "img_id": self.img_id,
         }
 
     @staticmethod
@@ -49,6 +51,7 @@ class GoodType():
             id = data_dict['id'],
             type_name = data_dict['type_name'],
             show_index = data_dict['show_index'],
+            img_id = data_dict['img_id'],
         )
 
 class Image():
@@ -72,16 +75,17 @@ class Image():
             origin_filename = data_dict['origin_filename']
         )
 
-def get_type_list():
-    dump_list = []
-    for key in types.keys():
-        dump_list.append(types[key].to_json_obj())
-    return json.dumps(dump_list)
-
+# 获取列表
 def get_good_list():
     dump_list = []
     for key in goods.keys():
         dump_list.append(goods[key].to_json_obj())
+    return json.dumps(dump_list)
+
+def get_type_list():
+    dump_list = []
+    for key in types.keys():
+        dump_list.append(types[key].to_json_obj())
     return json.dumps(dump_list)
 
 def get_image_list():
@@ -90,6 +94,7 @@ def get_image_list():
         dump_list.append(images[key].to_json_obj())
     return json.dumps(dump_list)
 
+# 加载与保存
 def load():
     file_name = config['data_file']
     data_file = open(file_name, 'r')

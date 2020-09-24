@@ -11,8 +11,14 @@ def get_id(collison=[]):
         if id not in collison:
             return id
 
-def add_type(type_name, show_index=1):
-    t = models.GoodType(get_id(list(models.types.keys)), type_name, show_index)
+def get_type_list():
+    return models.get_type_list()
+
+def add_type(type_name, img_id, show_index=1):
+    for t in models.types.values():
+        if t.type_name == type_name:
+            return errcode.TYPE_NAME_REPEATED
+    t = models.GoodType(get_id(list(models.types.keys())), type_name, show_index, img_id)
     models.types[t.id] = t
     models.save()
     return errcode.OK
@@ -61,3 +67,7 @@ def add_image(req_file):
     models.images[g.id] = g
     models.save()
     return errcode.OK
+
+def get_img_filename(id):
+    if id in models.images:
+        return models.images[id].filename
